@@ -121,6 +121,7 @@ services:
     volumes:
       - ./airflow/dags:/opt/airflow/dags
       - ./airflow/logs:/opt/airflow/logs
+      - ./extract:/opt/airflow/extract
 
     ports:
       - "8080:8080"
@@ -144,7 +145,8 @@ services:
     volumes:
       - ./airflow/dags:/opt/airflow/dags
       - ./airflow/logs:/opt/airflow/logs
-
+      - ./extract:/opt/airflow/extract
+      
     command: scheduler
 
 volumes:

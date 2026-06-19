@@ -101,7 +101,7 @@ with DAG(
         python_callable=extract_table_to_s3,
         op_kwargs={"table_name": "orders"},
     )
-
+'''
     # ===============================================================
     # STEP 2 — Load: S3 -> Redshift STG (TRUNCATE + COPY), per table
     # ===============================================================
@@ -209,7 +209,7 @@ with DAG(
             f"--select marts.sales marts.marketing"
         ),
     )
-
+'''
     # ===============================================================
     # Dependencies
     # ===============================================================
