@@ -2,8 +2,8 @@ from airflow import DAG
 from airflow.operators.bash import BashOperator
 from datetime import datetime, timedelta
 
-DBT_PROJECT_DIR = "/opt/dbt"
-DBT_PROFILES_DIR = "/opt/dbt"
+DBT_PROJECT_DIR = "/opt/airflow/dags/dbt"
+DBT_PROFILES_DIR = "/opt/airflow/dags/dbt"
 
 default_args = {
     "owner": "data_engineering",
@@ -39,7 +39,13 @@ with DAG(
         ls -la /opt/airflow/dags/dbt || true
         """,
     )
-
+    dbt_packages = BashOperator(
+        task_id="dbt_packages",
+        bash_command="""
+        cd /opt/airflow/dags/dbt
+        dbt deps --profiles-dir .
+        """
+        )
 
     run_staging = BashOperator(
         task_id="run_staging",
@@ -56,6 +62,15 @@ with DAG(
         set -e
         cd {DBT_PROJECT_DIR}
         dbt run --select int --profiles-dir {DBT_PROFILES_DIR}
+        """,
+    )
+
+    run_snapshot = BashOperator(
+        task_id="run_snapshot",
+        bash_command=f"""
+        set -e
+        cd {DBT_PROJECT_DIR}
+        dbt run --select snapshot --profiles-dir {DBT_PROFILES_DIR}
         """,
     )
 
@@ -88,7 +103,9 @@ with DAG(
 
     (
            check_dbt
+        >> dbt_packages   
         >> run_staging
+        >> run_snapshot
         >> run_intermediate
         >> run_dimensions
         >> run_facts

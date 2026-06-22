@@ -17,23 +17,26 @@ clean-targets:
   - "dbt_packages"
 
 models:
-  enterprise_dwh:
+
     staging:
       +schema: stage
       +materialized: view
 
     marts:
       dimension:
-        +schema: dwh
+        +schema: warehouse
         +materialized: table
+
       fact:
-        +schema: dwh
+        +schema: warehouse
         +materialized: table
+
       sales:
-        +schema: sales_mart
+        +schema: warehouse
         +materialized: table
+
       marketing:
-        +schema: marketing_mart
+        +schema: warehouse
         +materialized: table
 
 snapshots:

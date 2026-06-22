@@ -3,12 +3,23 @@ enterprise_dwh:
 
   outputs:
     dev:
+      type: postgres
+      host: "{{ env_var('PG_HOST') }}"
+      user: "{{ env_var('PG_USER') }}"
+      password: "{{ env_var('PG_PASSWORD') }}"
+      port: 5432
+      dbname: "{{ env_var('PG_DATABASE') }}"
+      schema: public
+      threads: 4
+      keepalives_idle: 0
+
+    snowflake:
       type: snowflake
-      account: "{{ env_var('SNOWFLAKE_ACCOUNT') }}"
-      user: "{{ env_var('SNOWFLAKE_USER') }}"
-      password: "{{ env_var('SNOWFLAKE_PASSWORD') }}"
-      role: "{{ env_var('SNOWFLAKE_ROLE') }}"
-      database: "{{ env_var('SNOWFLAKE_DATABASE') }}"
-      warehouse: "{{ env_var('SNOWFLAKE_WAREHOUSE') }}"
-      schema: "{{ env_var('SNOWFLAKE_SCHEMA') }}"
+      account: "{{ env_var('SF_ACCOUNT') }}"
+      user: "{{ env_var('SF_USER') }}"
+      password: "{{ env_var('SF_PASSWORD') }}"
+      role: "{{ env_var('SF_ROLE') }}"
+      database: "{{ env_var('SF_DATABASE') }}"
+      warehouse: "{{ env_var('SF_WAREHOUSE') }}"
+      schema: "{{ env_var('SF_SCHEMA') }}"
       threads: 4

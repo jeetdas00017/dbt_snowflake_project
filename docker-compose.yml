@@ -136,7 +136,10 @@ services:
       - ./airflow/dags:/opt/airflow/dags
       - ./airflow/logs:/opt/airflow/logs
       - ./extract:/opt/airflow/extract
-      - .env:/opt/airflow/.env
+    
+    env_file:
+      - .env
+    
     command: scheduler
 
 volumes:
