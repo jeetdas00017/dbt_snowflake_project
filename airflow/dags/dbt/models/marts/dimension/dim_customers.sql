@@ -13,6 +13,7 @@ select
     email,
     phone,
     city,
+    country,
     signup_date,
     dbt_valid_from                                       as effective_from,
     coalesce(dbt_valid_to, '9999-12-31'::timestamp)      as effective_to,

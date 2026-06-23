@@ -16,7 +16,7 @@ products as (
 ),
 
 customers as (
-    select customer_sk, country, state
+    select customer_sk, country
     from {{ ref('dim_customers') }}
     where is_current = true
 )
@@ -27,7 +27,6 @@ select
     p.sub_category,
     p.brand,
     c.country,
-    c.state,
     sum(f.quantity)                as total_units_sold,
     sum(f.total_amount)            as total_revenue,
     sum(f.discount * f.quantity)   as total_discount,
@@ -36,4 +35,4 @@ select
 from fact f
 left join products  p on f.product_sk  = p.product_sk
 left join customers c on f.customer_sk = c.customer_sk
-group by 1, 2, 3, 4, 5, 6
+group by 1, 2, 3, 4, 5

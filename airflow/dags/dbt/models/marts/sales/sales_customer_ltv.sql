@@ -10,7 +10,7 @@ with fact as (
 ),
 
 customers as (
-    select customer_sk, customer_id, first_name, last_name, email, country, acquisition_channel
+    select customer_sk, customer_id, first_name, last_name, email, country
     from {{ ref('dim_customers') }}
     where is_current = true
 )
@@ -21,7 +21,6 @@ select
     c.last_name,
     c.email,
     c.country,
-    c.acquisition_channel,
     count(distinct f.order_id)                                     as total_orders,
     sum(f.total_amount)                                            as lifetime_value,
     min(f.order_date)                                              as first_order_date,
@@ -29,4 +28,4 @@ select
     sum(f.total_amount) / nullif(count(distinct f.order_id), 0)    as avg_order_value
 from fact f
 join customers c on f.customer_sk = c.customer_sk
-group by 1, 2, 3, 4, 5, 6
+group by 1, 2, 3, 4, 5

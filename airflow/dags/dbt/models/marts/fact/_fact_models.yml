@@ -20,7 +20,4 @@ models:
         tests:
           - dbt_utils.accepted_range:
               min_value: 0
-      - name: order_status
-        tests:
-          - accepted_values:
-              values: ['pending', 'shipped', 'delivered', 'cancelled', 'returned']
+

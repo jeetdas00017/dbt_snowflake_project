@@ -5,7 +5,7 @@
 -- ---------------------------------------------------------------------
 
 with customers as (
-    select customer_sk, customer_id, acquisition_channel, signup_date
+    select customer_sk, customer_id, city , signup_date
     from {{ ref('dim_customers') }}
     where is_current = true
 ),
@@ -25,7 +25,7 @@ orders_by_customer as (
 )
 
 select
-    1 as acquisition_channel,
+    city,
     count(distinct c.customer_id)                                                  as total_customers,
     sum(coalesce(o.total_orders, 0))                                               as total_orders,
     sum(coalesce(o.total_revenue, 0))                                              as total_revenue,

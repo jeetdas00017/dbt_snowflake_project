@@ -13,6 +13,7 @@
         lower(email) as email,
         phone,
         city,
+        country,
         cast(signup_date as date) as signup_date,
         cast(created_at as timestamp) as created_at,
         cast(updated_at as timestamp) as updated_at

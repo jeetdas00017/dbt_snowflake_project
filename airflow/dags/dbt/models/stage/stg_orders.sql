@@ -16,8 +16,8 @@ select
     unit_price,
     coalesce(discount, 0)   as discount,
     total_amount,
-    lower(order_status)     as order_status,
-    lower(payment_method)   as payment_method,
+    coalesce(trim(lower(order_status)), 'unknown')     as order_status,
+    coalesce(trim(lower(payment_method)), 'unknown')   as payment_method,
     cast(created_at as timestamp) as created_at,
     cast(updated_at as timestamp) as updated_at
 from {{ source('raw', 'orders') }}

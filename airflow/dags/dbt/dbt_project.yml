@@ -32,14 +32,15 @@ models:
         +materialized: table
 
       sales:
-        +schema: warehouse
+        +schema: sales_team
         +materialized: table
 
       marketing:
-        +schema: warehouse
+        +schema: marketing_team
         +materialized: table
 
 snapshots:
   enterprise_dwh:
     +target_schema: warehouse
     +strategy: timestamp
+    +updated_at: 'updated_at'

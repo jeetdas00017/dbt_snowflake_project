@@ -10,7 +10,7 @@ with fact as (
 ),
 
 customers as (
-    select customer_sk, customer_id, email, acquisition_channel, country, signup_date
+    select customer_sk, customer_id, email, signup_date
     from {{ ref('dim_customers') }}
     where is_current = true
 ),
